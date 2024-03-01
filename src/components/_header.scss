@@ -1,0 +1,72 @@
+@use "../Variables.scss" as *;
+
+header {
+  width: 100%;
+  height: auto;
+  font-family: $karla;
+  background-color: $primary-color1;
+  color: $highlight-color1;
+
+  .container {
+    display: flex;
+    width: 883px;
+    height: auto;
+    margin: 0 auto;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    .left {
+      width: 375px;
+
+      p {
+        font-size: 20px;
+        margin-top: 1rem;
+        margin-bottom: 4rem;
+      }
+
+      button {
+        width: 200px;
+        height: 60px;
+        padding: 1rem 2rem;
+      }
+    }
+
+    .right {
+      img {
+        width: 375px;
+        height: 325px;
+        object-fit: cover;
+      }
+    }
+  }
+
+  @media screen and (max-width: $small-scrn) {
+    & {
+      min-width: 400px;
+      .container {
+        flex-direction: column-reverse;
+        justify-content: flex-start;
+        width: 100%;
+        padding: 2rem;
+        .left {
+          width: 100%;
+        }
+        .right img {
+          width: 100%;
+        }
+
+      }
+    }
+  }
+
+  @media screen and (min-width:$med-scrn) {
+    &{
+      .container {
+        padding: 2rem 1rem;
+      }
+     }
+    
+  }
+}

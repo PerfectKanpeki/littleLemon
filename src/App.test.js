@@ -1,12 +1,11 @@
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import { screen, getByText, render } from "@testing-library/react";
+import '@testing-library/jest-dom'
+import App from "./App";
 
-import { Reservations } from './components';
 
-test('Checking Time Status Section', () => {
-  render( <Reservations />);
+test("Test reading screen", () => {
+    render(<App />);
 
-  const statusHeadaing = screen.getByText("Evening");
-
-  expect(statusHeadaing).toBeInTheDocument();
-});
+    const headerElement = screen.getByText('Contact')
+    expect(headerElement).toBeInTheDocument();
+})

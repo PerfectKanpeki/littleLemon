@@ -1,0 +1,96 @@
+@use "../Variables.scss" as *;
+
+nav {
+  position: fixed;
+  z-index: 1001;
+  width: 100vw;
+  top: 0;
+  background-color: $highlight-color1;
+
+  menu {
+    display: flex;
+    width: 880px;
+    height: 123px;
+    margin: 0 auto;
+    justify-content: space-between;
+    align-items: center;
+
+    img.logo {
+      height: 70px;
+    }
+
+    ul li{
+      cursor: pointer;
+    }
+
+    ul.horizontal {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      list-style: none;
+      gap: 1rem;
+
+      a {
+        text-decoration: none;
+      }
+
+      button {
+        padding: 0.5rem 1.25rem;
+        font-size: 1rem;
+      }
+    }
+
+    .verticalBurgerMenu {
+      display: none;
+      width: 2rem;
+    }
+
+    ul.vertical {
+      display: none;
+      position: fixed;
+      top: 123px;
+      right: -500px;
+      font-size: 18px;
+      padding: 1rem 2rem;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      list-style: none;
+      background-color: $highlight-color1;
+      li {
+        margin-top: 1rem;
+
+        &:hover{
+          border-bottom: 1px solid black;
+        }
+
+        button {
+          padding: 0.5rem 2rem;
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: $small-scrn) {
+    & {
+      width: 100%;
+
+      menu {
+        width: 100%;
+        padding: 0 2rem;
+
+        ul.horizontal {
+          display: none;
+        }
+
+        .verticalBurgerMenu{
+          display: inline;
+        }
+
+        ul.vertical {
+          display: block;
+        }
+      }
+    }
+  }
+}

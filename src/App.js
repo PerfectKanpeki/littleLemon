@@ -1,88 +1,63 @@
-import './App.css';
-import { useState, useEffect, React } from 'react';
-import { Navbar, Header, Main, Footer, Reservations, OrderOnline } from './components';
-import {Routes, Route, useLocation  } from "react-router-dom";
-import { headerData, reservationData, orderOnline } from './constants';
-import DataContext from './DataContext';
-import ConfirmedBooking from './components/Reservations/ConfirmedBooking';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Footer from "./components/Footer";
+import Main from "./components/Main";
+import Nav from "./components/Nav";
+import "./Global.scss";
+import BookingForm from "./components/BookingForm";
+import Header from "./components/Header";
+import { useReducer } from "react";
+import { fetchAPI } from "./bookingAPI";
+import Confirmed from "./components/Confirmed";
+
+function HomePage() {
+  return (
+    <>
+      <Header />
+      <Main />
+    </>
+  );
+}
+
+function BookingPage({ availableTimes, dispatch }) {
+  return (
+    <>
+      <BookingForm availableTimes={availableTimes} dispatch={dispatch} />
+    </>
+  );
+}
 
 function App() {
-// use state to set data
-// use effect to get path
-  const location = useLocation();
-  const [path, setPath] = useState(location.pathname);
+  const updateTimes = (state, date) => {
+    return (state = fetchAPI(date));
+  };
 
-  // set path name on route change
-  useEffect(()=> {
-    setPath(location.pathname);
-  }, [location.pathname]);
+  const initializeTime = fetchAPI(new Date());
 
+  const [availableTimes, dispatch] = useReducer(updateTimes, initializeTime);
 
-    // Send data to header to based on route
-    let data = {};
-    if(path === '/' || path === '/Little-Lemon') {
-
-      data = headerData;
-
-    } else if (path === '/Reservations') {
-
-      data = reservationData;
-
-    } else if (path === '/OrderOnline') {
-
-      data = orderOnline;
-
-    }
-
-    
   return (
-      <>
-      
-          <Navbar />
-            <DataContext.Provider value={data}>
-                <Routes>
-                  <Route path='/Little-Lemon' element ={ 
-                    <>
+    <>
+      <BrowserRouter>
+        <Nav />
 
-                      <Header />
-                      <Main />
-
-
-                    </>
-                  } />                  
-                  <Route path='/' element ={ 
-                    <>
-
-                      <Header />
-                      <Main />
-
-
-                    </>
-                  } />
-                  <Route path='/Reservations' element={
-                    <>
-
-                      <Header />
-                      <Reservations />
-
-                        
-                    </>
-                  } />
-                  <Route path='/OrderOnline' element={
-                    <>
-                      <Header />
-                      <OrderOnline />  
-                    </>
-                  } />                  
-
-                  {/* Path for booking confirmation */}
-                  <Route path='/ConfirmedBooking' element={<ConfirmedBooking/>}/>
-
-                </Routes>
-            </DataContext.Provider>
+        <main>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route
+              path="/bookingpage"
+              element={
+                <BookingPage
+                  availableTimes={availableTimes}
+                  dispatch={dispatch}
+                />
+              }
+            />
+            <Route path="/confirmed" element={<Confirmed />} />
+          </Routes>
           <Footer />
-
-      </>
+        </main>
+      </BrowserRouter>
+    </>
   );
 }
 

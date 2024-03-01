@@ -1,0 +1,42 @@
+@use '../Variables.scss' as *;
+
+form.bookingForm {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(auto-fill, 30px);
+    align-items: center;
+    max-width: 400px;
+    height: 100%;
+    gap: 10px;
+    margin: 0 auto;
+    padding: 2rem;
+    font-size: 18px;
+    grid-row: 1 / 3;
+    font-family: $markazi;
+
+    input{
+        text-align: right;
+        padding: .25rem;
+    }
+
+    select, option {
+        text-align: center;
+        padding: .25rem;
+    }
+
+    input[type=submit]{
+        margin-top: 3rem;
+        padding: .5rem 1rem;
+        grid-column: span 2;
+        text-align: center;
+    }
+
+    .error {
+        color: red;
+        grid-column: 1/3;
+        font-size: 12px;
+        text-align: right;
+        align-self: flex-start;
+    }
+
+}
